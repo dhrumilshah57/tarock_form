@@ -1,52 +1,66 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import logo from './tarockLogo.svg'
 import bg_img from './background.svg'
 import { replace, useFormik } from 'formik';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Data, User, Userdata } from './models/user';
+import { AuthContext, useAuth } from './store/AuthContext';
 
 
 function Form() {
-    const [error, setError] = useState();
-    const [status, setStatus] = useState();
-    
-    useEffect(()=>{
-        if(localStorage.getItem('auth')) navigate('/home')
-    },[status==="1"])
-    const navigate=useNavigate();
+    const [error, setError] = useState<string>();
+    const [status, setStatus] = useState<string>();
+    // const [data, setData] = useState<User>();
+    const { setData } = useAuth()
+    // useEffect(() => {
+    //     if (localStorage.getItem('auth')) navigate('/home')
+    // }, [status === "1"])
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        onSubmit: values => {
+        onSubmit: async values => {
             // alert(JSON.stringify(values, null, 2));
             const dataToSubmit = {
                 email: values.email,
                 password: values.password
             }
             console.log(dataToSubmit)
-            fetch('https://project-management.kodecreators.com/api/login', {
+            let res = await fetch('https://project-management.kodecreators.com/api/login', {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
                 body: JSON.stringify(dataToSubmit)
-            }).then(res => res.json())
-                .then(res => {
-                    return (
-                        setError(res.message),
-                        setStatus(res.status),
-                        localStorage.setItem('auth',res.status)
-                    )
-                })
-                // navigate("/home",{replace:true})
-            // if(status==="1"){
-            //     navigate("/home",{replace:true})
-            // }else{
-            //     navigate("/login")
-            // }
+            })
+            let dataObtained = await res.json() as User;
+            // console.log(data.userdata.name)
+            setData(dataObtained)
+            setError(dataObtained.status)
+            setError(dataObtained.message)
+            // console.log(dataObtained)
+            //     .then(res => {
+            //         return (
+            //             setError(res.message),
+            //             setStatus(res.status),
+            //             localStorage.setItem('auth', res.status),
+            //             console.log(JSON.stringify(res)),
+            //             // localStorage.setItem('name', res.),
+            //             setData(res.data)
+            //             // navigate("/home", { replace: true })
+            //         )
+            //     })
+            { dataObtained.status === '1' ? localStorage.setItem('auth', '1') : localStorage.setItem('auth', '0') }
+
+            if (localStorage.getItem('auth') === "1") {
+                await navigate("/home", { replace: true })
+            }
         },
     });
+    // console.log(localStorage.getItem('name'))
+
     // if(status==="1"){
     //     props.user=(true)
     // }
@@ -62,7 +76,7 @@ function Form() {
     //                     </div>
     //     )
     // }
-
+    // localStorage.setItem('auth',)
     return (
         <section className=' text-black h-screen w-full' >
             <img src={bg_img} className="w-full h-full object-cover mix-blend-overlay fixed z-0" alt="" />
@@ -87,14 +101,14 @@ function Form() {
                             <p className="font-bold">{error}</p>
     </div>} */}
                         {
-                           <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-                           <div className="flex">
-                               <div className="py-1"><svg className="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg></div>
-                               <div>
-                                   <p className="font-bold">{error}</p>
-                               </div>
-                           </div>
-                       </div>
+                            <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+                                <div className="flex">
+                                    <div className="py-1"><svg className="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg></div>
+                                    <div>
+                                        <p className="font-bold">{error}</p>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
 
