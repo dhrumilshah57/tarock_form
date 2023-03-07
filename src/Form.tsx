@@ -3,13 +3,16 @@ import logo from './tarockLogo.svg'
 import bg_img from './background.svg'
 import { replace, useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { Data, User, Userdata } from './models/user';
+import { Data, User, } from './models/user';
 import { AuthContext, useAuth } from './store/AuthContext';
 
 
 function Form() {
     const [error, setError] = useState<string>();
     const [status, setStatus] = useState<string>();
+    const auth = localStorage.getItem('auth');
+    const initialToken = auth ? JSON.parse(localStorage.getItem('auth') ?? "") as User : undefined;
+
     // const [data, setData] = useState<User>();
     const { setData } = useAuth()
     // useEffect(() => {
@@ -28,7 +31,7 @@ function Form() {
                 password: values.password
             }
             console.log(dataToSubmit)
-            let res = await fetch('https://project-management.kodecreators.com/api/login', {
+            let res = await fetch('https://interview-api.kodecreators.com/api/users/login', {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -52,10 +55,10 @@ function Form() {
             //             // navigate("/home", { replace: true })
             //         )
             //     })
-            { dataObtained.status === '1' ? localStorage.setItem('auth', '1') : localStorage.setItem('auth', '0') }
+            { dataObtained.status === '1' ? localStorage.setItem('auth', JSON.stringify(dataObtained)) : localStorage.setItem('auth', '0') }
 
-            if (localStorage.getItem('auth') === "1") {
-                await navigate("/home", { replace: true })
+            if (initialToken?.status === "1") {
+                navigate("/home/dashboard", { replace: true })
             }
         },
     });
