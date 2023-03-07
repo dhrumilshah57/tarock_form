@@ -46,14 +46,23 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                         X
                     </button>
                 </div>
-                <div className="text-4xl text-center text-white">
+                <div className="text-3xl text-center ">
                     <h1>Rename User</h1>
                 </div>
                 <div className="ml-5 mt-10">
                     <form className="flex flex-col" onSubmit={formik.handleSubmit} method='POST' action="#">
-                        <label className="text-3xl text-white">User Name</label>
-                        <input value={formik.values.name} onChange={formik.handleChange} name="name" placeholder="Enter User Name" className="text-black  outline-none mt-5 h-11 text-lg pl-3" />
-                        {formik.errors.name ? <div className="text-red-500 text-lg text-center mt-5">{formik.errors.name}</div> : null}
+
+                        <label className="text-lg ">User Name</label>
+                        <input value={formik.values.name} onChange={formik.handleChange} name="name" placeholder="Enter User Name" className="text-black border-2 border-opacity-5 rounded-md  outline-none mt-3 h-11 text-lg pl-3" />
+                        <label className="text-lg pt-3">User Name</label>
+                        <input value={formik.values.name} onChange={formik.handleChange} name="name" placeholder="Enter User Name" className="text-black border-2 border-opacity-5 rounded-md  outline-none mt-3 h-11 text-lg pl-3" />
+                        <label className="text-lg pt-3">Gender</label>
+                        <div className='flex gap-5 pt-3'>
+                            <div><input type="radio" value="Male" />{' '}<label>Male</label></div>
+                            <div><input type="radio" value="Female" />{' '}<label>Female</label></div>
+                        </div>
+                        <label className="text-lg pt-3">Date Of Birth</label>
+                        <input type="date" className='text-black border-2 border-opacity-5 rounded-md  outline-none mt-3 h-11 text-lg pl-3' />
                         <div className="footer mt-5">
                             <button
                                 onClick={() => {
@@ -69,8 +78,8 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                 </div>
 
 
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
