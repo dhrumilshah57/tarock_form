@@ -23,12 +23,14 @@ function UsersData() {
 
 
     useEffect(() => {
-        fetch("https://interview-api.kodecreators.com/api/users/detail", {
+        fetch("https://interview-api.kodecreators.com/api/users?page=1&per_page=10", 
+        {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${initialToken?.token}`,
             },
-        })
+        }
+        )
             .then((response) => response.json())
             .then((data) => setData(data.data));
     }, []);
@@ -36,7 +38,7 @@ function UsersData() {
     console.log(data)
     return (
         <div>
-            <Users data={data ?? []} />
+            <Users data={data ?? []} rowsPerPage={5}/>
         </div>
     )
 }

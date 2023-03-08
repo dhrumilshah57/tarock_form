@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import EditItem from './EditItem';
 import useTable from './hooks/useTable';
@@ -6,13 +6,13 @@ import { Data, User } from './models/user';
 import TableFooter from './TableFooter';
 import UsersData from './UsersData';
 
-function Users(props: { data: any }) {
+function Users(props: { data: any, rowsPerPage: number }) {
     const data = props.data;
-
+    const rowsPerPage = props.rowsPerPage;
     const [page, setPage] = useState(1);
-    // const { slice, range } = useTable(page, rowsPerPage, data);
+    const { slice, range } = useTable(page, rowsPerPage, data);
     const [userId, setUserId] = useState();
-
+    console.log(userId)
     // const { stateId } = useParams();
     // const [openModal, setOpenModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -61,8 +61,45 @@ function Users(props: { data: any }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                {
+                                    data.map((items: Data
+                                    //     {
+                                    //     id: string | number | readonly string[] | undefined;
+                                    //     email: ReactNode;
+                                    //     date_of_birth: ReactNode;
+                                    //     country_id: ReactNode;
+                                    //     gender: ReactNode; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined;
+                                    // }
+                                    ) => {
+                                        return (
+                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {items.name}
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                    {items.email}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {items.date_of_birth}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {items.country_id}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {items.gender}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className='flex items-center gap-5'>
+                                                        <div className=''><button value={items.id} className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500' onClick={() => { setEditModal(true);}}>Edit</button></div>
+                                                        <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Delete</button></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                {/* <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {data.name}
                                     </th>
                                     <td className="px-6 py-4">
@@ -82,11 +119,16 @@ function Users(props: { data: any }) {
                                             <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500' onClick={() => { setEditModal(true); setUserId(data.id) }}>Edit</button></div>
                                             <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Delete</button></div>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </td> */}
 
                             </tbody>
                         </table>
+                        <TableFooter
+                            range={range}
+                            slice={slice}
+                            setPage={setPage}
+                            page={page}
+                        />
                     </div>
                 </div>
             </div>
