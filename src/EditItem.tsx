@@ -154,7 +154,7 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                             >
                                 Cancel
                             </button>
-                            <button >Submit</button>
+                            <button type='submit'>Submit</button>
                         </div>
                     </form>
                 </div>
