@@ -9,10 +9,13 @@ import UsersData from './UsersData';
 function Users(props: { data: any, rowsPerPage: number }) {
     const data = props.data;
     const rowsPerPage = props.rowsPerPage;
+    console.log(rowsPerPage);
+
     const [page, setPage] = useState(1);
     const { slice, range } = useTable(page, rowsPerPage, data);
-    const [userId, setUserId] = useState();
-    console.log(userId)
+    const [userData, setUserData] = useState<any>();
+    console.log(slice);
+
     // const { stateId } = useParams();
     // const [openModal, setOpenModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -22,7 +25,7 @@ function Users(props: { data: any, rowsPerPage: number }) {
     console.log(data.name)
     return (
         <div className="w-full h-screen ">
-            {editModal && <EditItem closeModal={setEditModal} id={userId} />}
+            {editModal && <EditItem closeModal={setEditModal} data={userData} />}
             <div className="p-4 sm:ml-64">
 
                 <div className="p-4  dark:border-gray-700 mt-14">
@@ -63,14 +66,14 @@ function Users(props: { data: any, rowsPerPage: number }) {
                             <tbody>
 
                                 {
-                                    data.map((items: Data
-                                    //     {
-                                    //     id: string | number | readonly string[] | undefined;
-                                    //     email: ReactNode;
-                                    //     date_of_birth: ReactNode;
-                                    //     country_id: ReactNode;
-                                    //     gender: ReactNode; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined;
-                                    // }
+                                    slice.map((items: Data
+                                        //     {
+                                        //     id: string | number | readonly string[] | undefined;
+                                        //     email: ReactNode;
+                                        //     date_of_birth: ReactNode;
+                                        //     country_id: ReactNode;
+                                        //     gender: ReactNode; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined;
+                                        // }
                                     ) => {
                                         return (
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -91,7 +94,7 @@ function Users(props: { data: any, rowsPerPage: number }) {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className='flex items-center gap-5'>
-                                                        <div className=''><button value={items.id} className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500' onClick={() => { setEditModal(true);}}>Edit</button></div>
+                                                        <div className=''><button value={items.id} className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500' onClick={() => { setEditModal(true); setUserData(items) }}>Edit</button></div>
                                                         <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Delete</button></div>
                                                     </div>
                                                 </td>

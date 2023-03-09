@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 function useTable(page: number, rowsPerPage: number, data: any[]) {
+    console.log(rowsPerPage);
 
     const [tableRange, setTableRange] = useState<number[]>([]);
     const [slice, setSlice] = useState<any[]>([]);
