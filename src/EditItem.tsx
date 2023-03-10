@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import "./AddItem.css";
 import { Country, CountryData } from './models/country';
 import { User } from './models/user';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boolean>>, data: any }) {
     const auth = localStorage.getItem('auth');
@@ -79,15 +81,22 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                 body: JSON.stringify(dataToSubmit)
             }).then(res => res.json())
                 .then(res => {
+                    toast.success("Updated", {
+                        position: "bottom-left",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,});
                     console.log(res)
+                    
                 })
             props.closeModal(false)
-
             // navigate(`/countries/${id}/states/${stateId}/cities`)
         },
     })
 
-
+    
     return (
         <div className="modalBackground">
             <div className="modalContainer">
@@ -158,10 +167,11 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                         </div>
                     </form>
                 </div>
-
+                                
 
             </div >
         </div >
+        
     )
 }
 

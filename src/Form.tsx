@@ -5,6 +5,8 @@ import { replace, useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { Data, User, } from './models/user';
 import { AuthContext, useAuth } from './store/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Form() {
@@ -59,6 +61,13 @@ function Form() {
 
             if (initialToken?.status === "1") {
                 navigate("/home/dashboard", { replace: true })
+                toast.success("Login Succesfully!", {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,})
             }
         },
     });

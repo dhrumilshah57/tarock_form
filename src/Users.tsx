@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import EditItem from './EditItem';
+import { ExportData } from './ExportData';
 import useTable from './hooks/useTable';
 import { Data, User } from './models/user';
 import TableFooter from './TableFooter';
@@ -37,7 +38,9 @@ function Users(props: { data: any, rowsPerPage: number }) {
                     </div> */}
                     <div className='flex items-center w-full'>
                         <div className='text-2xl'>Users</div>
-                        <div className='ml-auto'><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Add</button></div>
+                        
+                        <div className='ml-auto flex gap-5'><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Add</button>
+                            <ExportData apiData={data} fileName={__filename}/></div>
                     </div>
                     <div className="relative overflow-x-auto mt-7">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border-2 border-gray-200 border-dashed rounded-lg">
