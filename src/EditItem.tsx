@@ -14,7 +14,7 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
     const userInfo = props.data;
     const [country, setCountry] = useState();
     useEffect(() => {
-        fetch("https://interview-api.kodecreators.com/api/countries?page=1&per_page=10",
+        fetch(`https://interview-api.kodecreators.com/api/countries?page=1&per_page=10`,
             {
                 method: "GET",
                 headers: {
@@ -87,7 +87,7 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
-                        draggable: true,});
+                        draggable: true,theme: "dark",});
                     console.log(res)
                     
                 })
@@ -99,7 +99,7 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
     
     return (
         <div className="modalBackground">
-            <div className="modalContainer">
+            <div className="modalContainer dark:bg-[#21262D] dark:text-gray-500">
                 {/* <div className="titleCloseBtn">
                     <button
                         onClick={() => {
@@ -115,26 +115,28 @@ function EditItem(props: { closeModal: React.Dispatch<React.SetStateAction<boole
                 <div className="pl-1 mt-3">
                     <form className="flex flex-col" onSubmit={formik.handleSubmit} method='POST' action="#">
 
-                        <div className='flex items-center justify-center p-3'><img className="w-20 h-20 rounded-full" src={userInfo.img_url} alt="user photo" /></div>
-                        <input value={formik.values.name} onChange={formik.handleChange} name="name" placeholder="Enter User Name" className="text-black border-2 border-opacity-5 rounded-md  outline-none mt-2 h-11 text-lg pl-3" />
-                        <input value={formik.values.email} onChange={formik.handleChange} name="email" placeholder="Enter User email" className="text-black border-2 border-opacity-5 rounded-md  outline-none mt-2 h-11 text-lg pl-3" />
+                        <div className='flex items-center justify-center p-3'><img className="w-20 h-20 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" /></div>
+                        <input value={formik.values.name} onChange={formik.handleChange} name="name" placeholder="Enter User Name" className=" border-2 border-[#7371FF]  rounded-md  outline-none mt-2 h-11 text-lg pl-3 dark:bg-[#21262D]" />
+                        <input value={formik.values.email} onChange={formik.handleChange} name="email" placeholder="Enter User email" className=" border-2 border-[#7371FF] rounded-md  outline-none mt-2 h-11 text-lg pl-3 dark:bg-[#21262D]" />
                         <label className="text-lg pt-2">Gender</label>
                         <div className='flex gap-5 pt-2'>
                             <div><input type="radio" value="MALE" name='gender' onChange={formik.handleChange} checked={formik.values.gender === "MALE"} />{' '}<label>Male</label></div>
                             <div><input type="radio" value="FEMALE" name='gender' onChange={formik.handleChange} checked={formik.values.gender === "FEMALE"} />{' '}<label>Female</label></div>
                         </div>
                         <label className="text-lg pt-3">Date Of Birth</label>
-                        <input type="date" name='date_of_birth' className='text-black border-2 border-opacity-5 rounded-md  outline-none h-11 text-lg pl-3' value={formik.values.date_of_birth} onChange={formik.handleChange} />
-                        <select name="country" id="" value={countryId} onChange={e => { setCountryId(e.target.value) }} className='text-black border-2 border-opacity-5 rounded-md  outline-none h-11 text-lg pl-3 mt-2'>
+                        <input type="date" name='date_of_birth' className=' border-2 border-[#7371FF] rounded-md  outline-none h-11 text-lg pl-3 dark:bg-[#21262D]' value={formik.values.date_of_birth} onChange={formik.handleChange} />
+                        <select name="country" id="" value={countryId} onChange={e => { setCountryId(e.target.value) }} className=' border-2 border-[#7371FF] rounded-md  outline-none h-11 text-lg pl-3 mt-2 dark:bg-[#21262D]'>
+                            
                             {
                                 countryInfo.map((items: Country) => {
-                                    return (<option value={items.id} >
+                                    return (
+                                    <option value={items.id} >
                                         {items.name}
                                     </option>)
                                 })
                             }
                         </select>
-                        <select name="state" id="" className='text-black border-2 border-opacity-5 rounded-md  outline-none h-11 text-lg pl-3 mt-2' onChange={formik.handleChange}>
+                        <select name="state" id="" className=' border-2 dark:bg-[#21262D] border-[#7371FF] rounded-md  outline-none h-11 text-lg pl-3 mt-2' onChange={formik.handleChange}>
                             {
                                 stateInfo.map((items: Country) => {
                                     return (<option>

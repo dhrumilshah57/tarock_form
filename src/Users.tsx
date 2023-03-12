@@ -25,7 +25,7 @@ function Users(props: { data: any, rowsPerPage: number }) {
     console.log(initialToken?.token)
     console.log(data.name)
     return (
-        <div className="w-full h-screen ">
+        <div className="dark:bg-[#0D1117] w-full h-screen ">
             {editModal && <EditItem closeModal={setEditModal} data={userData} />}
             <div className="p-4 sm:ml-64">
 
@@ -37,14 +37,14 @@ function Users(props: { data: any, rowsPerPage: number }) {
                         </div>
                     </div> */}
                     <div className='flex items-center w-full'>
-                        <div className='text-2xl'>Users</div>
+                        <div className='text-2xl text-gray-500'>Users</div>
                         
                         <div className='ml-auto flex gap-5'><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Add</button>
                             <ExportData apiData={data} fileName={__filename}/></div>
                     </div>
                     <div className="relative overflow-x-auto mt-7">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border-2 border-gray-200 border-dashed rounded-lg">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border-2 border-gray-200 dark:border-gray-700 border-dashed rounded-lg">
+                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-[#21262D] dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">
                                         Name
@@ -79,8 +79,8 @@ function Users(props: { data: any, rowsPerPage: number }) {
                                         // }
                                     ) => {
                                         return (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <tr className="bg-white border-b text-gray-500 dark:bg-[#21262D] dark:border-gray-700">
+                                                <th scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap">
                                                     {items.name}
                                                 </th>
                                                 <td className="px-6 py-4">
@@ -97,8 +97,8 @@ function Users(props: { data: any, rowsPerPage: number }) {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className='flex items-center gap-5'>
-                                                        <div className=''><button value={items.id} className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500' onClick={() => { setEditModal(true); setUserData(items) }}>Edit</button></div>
-                                                        <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500'>Delete</button></div>
+                                                        <div className=''><button value={items.id} className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500 text-black' onClick={() => { setEditModal(true); setUserData(items) }}>Edit</button></div>
+                                                        <div className=''><button className='bg-blue-300 h-10 w-20 outline-none border-2 border-blue-500 text-black'>Delete</button></div>
                                                     </div>
                                                 </td>
                                             </tr>
